@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>Hello</h1>
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AWI0o2TLwMDaUCABafYfGHMVUsjJtDafuGO6G1gjeQ2kmU0Ay9N4s3ewFu5q-thbIEMOiIGweGXACBVD&vault=true&intent=subscription"> -->
+    <script src="https://www.paypal.com/sdk/js?client-id={clientId}">
+  </script>
+  <div id="paypal-button-container"></div>
+    <script>
+      paypal.Buttons({
+        createOrder: function (data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '10.00' // replace with the actual amount
+              }
+            }]
+          });
+        },
+        onApprove: function (data, actions) {
+          // todo: after approve order needs to be capture
+          // ref: https://developer.paypal.com/docs/api/orders/v2/#orders_capture
+          console.log(data);
+          alert('You have successfully created order ' + data.orderID);
+        }
+      }).render('#paypal-button-container');
+    </script>
+  </body>
+</html>
